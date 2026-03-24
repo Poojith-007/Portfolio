@@ -50,6 +50,26 @@ const MANUAL_PROJECTS: Project[] = [
   }
 ];
 
+// Fallbacks for public projects in case the GitHub API is rate-limited on your local machine
+const PUBLIC_FALLBACKS: Project[] = [
+  {
+    id: 1,
+    title: "Portfolio",
+    description: "A cutting-edge anit-gravity immersive 3D portfolio experience.",
+    tech: ["TypeScript", "React", "Three.js"],
+    github: "https://github.com/Poojith-007/Portfolio",
+    demo: "https://poojith-007.github.io/Portfolio/"
+  },
+  {
+    id: 2,
+    title: "VoltVise",
+    description: "An open-source application developed in Kotlin.",
+    tech: ["Kotlin"],
+    github: "https://github.com/Poojith-007/VoltVise",
+    demo: "https://github.com/Poojith-007/VoltVise"
+  }
+];
+
 const TiltCard: React.FC<{ project: Project }> = ({ project }) => {
   const { gravityEnabled } = useGravity();
   const x = useMotionValue(0);
@@ -140,16 +160,21 @@ export const Projects = () => {
             github: repo.html_url,
             demo: repo.homepage || repo.html_url,
           }));
+        } else {
+          console.warn("GitHub API rate limit reached. Using fallback public projects to keep the layout full.");
         }
 
+        const publicProjects = fetchedProjects.length > 0 ? fetchedProjects : PUBLIC_FALLBACKS;
+
         // Combine manual projects with GitHub projects, then limit to 6
-        const combinedProjects = [...MANUAL_PROJECTS, ...fetchedProjects].slice(0, 6);
+        const combinedProjects = [...MANUAL_PROJECTS, ...publicProjects].slice(0, 6);
         setProjects(combinedProjects);
 
       } catch (error) {
         console.error("Failed to fetch projects from GitHub", error);
-        // Fallback to manual projects if GitHub fails entirely
-        setProjects(MANUAL_PROJECTS);
+        // Fallback to all local arrays if a critical network error happens
+        const combinedProjects = [...MANUAL_PROJECTS, ...PUBLIC_FALLBACKS].slice(0, 6);
+        setProjects(combinedProjects);
       } finally {
         setIsLoading(false);
       }
