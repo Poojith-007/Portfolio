@@ -14,6 +14,42 @@ interface Project {
 
 const GITHUB_USERNAME = "Poojith-007";
 
+// Add any private projects or non-GitHub projects you want to showcase here
+const MANUAL_PROJECTS: Project[] = [
+  {
+    id: 10001,
+    title: "Dataset Generator",
+    description: "Desktop application for image/video asset management, preprocessing, foreground/background extraction, and synthetic dataset generation.",
+    tech: ["Python", "QML"],
+    github: "https://github.com/Poojith-007/Dataset_Generator",
+    demo: "https://github.com/Poojith-007/Dataset_Generator"
+  },
+  {
+    id: 10002,
+    title: "Custom Charts",
+    description: "Advanced charting module with highly customized visualizations and configurations using QML and C++.",
+    tech: ["QML", "C++", "CMake"],
+    github: "https://github.com/Poojith-007/Custom-Charts",
+    demo: "https://github.com/Poojith-007/Custom-Charts"
+  },
+  {
+    id: 10003,
+    title: "Walker GUI",
+    description: "Graphical user interface tracking foot trajectory graphs, labels, and range configurations.",
+    tech: ["QML", "Python"],
+    github: "https://github.com/Poojith-007/Walker_GUI",
+    demo: "https://github.com/Poojith-007/Walker_GUI"
+  },
+  {
+    id: 10004,
+    title: "Global Charts & Graphs",
+    description: "A comprehensive charting system supporting interactive line chart visibility and drag functionalities in both live and offline modes.",
+    tech: ["QML", "Python"],
+    github: "https://github.com/Poojith-007/Global-Charts-Graphs",
+    demo: "https://github.com/Poojith-007/Global-Charts-Graphs"
+  }
+];
+
 const TiltCard: React.FC<{ project: Project }> = ({ project }) => {
   const { gravityEnabled } = useGravity();
   const x = useMotionValue(0);
@@ -92,10 +128,11 @@ export const Projects = () => {
         }
 
         const response = await fetch(endpoint, { headers });
+        let fetchedProjects: Project[] = [];
+        
         if (response.ok) {
           const data = await response.json();
-          // Filter to limit to 6 to keep layout clean, or change as needed
-          const formattedProjects = data.slice(0, 6).map((repo: any) => ({
+          fetchedProjects = data.map((repo: any) => ({
             id: repo.id,
             title: repo.name,
             description: repo.description || `An open-source application developed in ${repo.language || 'code'}.`,
@@ -103,10 +140,16 @@ export const Projects = () => {
             github: repo.html_url,
             demo: repo.homepage || repo.html_url,
           }));
-          setProjects(formattedProjects);
         }
+
+        // Combine manual projects with GitHub projects, then limit to 6
+        const combinedProjects = [...MANUAL_PROJECTS, ...fetchedProjects].slice(0, 6);
+        setProjects(combinedProjects);
+
       } catch (error) {
         console.error("Failed to fetch projects from GitHub", error);
+        // Fallback to manual projects if GitHub fails entirely
+        setProjects(MANUAL_PROJECTS);
       } finally {
         setIsLoading(false);
       }
