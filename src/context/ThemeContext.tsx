@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, FC, ReactNode } from 'react';
+import { createContext, useContext, useState, FC, ReactNode } from 'react';
 
 type Theme = 'dark' | 'light';
 
@@ -12,13 +12,9 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>('dark');
 
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [theme]);
+  // We explicitly removed the document.documentElement.classList logic 
+  // so the site remains visually dark natively, while the theme state 
+  // triggers our visual transition effects (Satellite Beam).
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));

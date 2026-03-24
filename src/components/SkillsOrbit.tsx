@@ -59,16 +59,7 @@ export const SkillsOrbit: FC = () => {
           <div className="absolute w-[280px] h-[280px] rounded-full border border-white/10"></div>
           <div className="absolute w-[340px] h-[340px] rounded-full border border-white/5 border-dashed"></div>
 
-          {/* Central Node */}
-          <motion.div
-            animate={gravityEnabled ? { y: [0, -10, 0] } : {}}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="relative z-20 w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 p-1 shadow-[0_0_30px_rgba(0,255,255,0.4)]"
-          >
-            <div className="w-full h-full rounded-full bg-black flex items-center justify-center">
-              <span className="font-bold text-lg text-white">ME</span>
-            </div>
-          </motion.div>
+          {/* Central Node removed */}
 
           {/* Orbiting Categories */}
           {orbitCategories.map((cat, i) => (
@@ -86,19 +77,27 @@ export const SkillsOrbit: FC = () => {
                 height: cat.distance * 2,
               }}
             >
-              <motion.div
-                className={`absolute top-0 left-1/2 -mt-6 -ml-6 w-12 h-12 rounded-full bg-gradient-to-br ${cat.color} p-0.5 cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.2)] group`}
+              <div
+                className="absolute"
                 style={{
                   top: '50%',
                   left: '50%',
-                  transform: `translate(-50%, -50%) rotate(${cat.angle}deg) translateY(-${cat.distance}px) rotate(-${cat.angle}deg)`
+                  width: '48px',
+                  height: '48px',
+                  marginTop: '-24px',
+                  marginLeft: '-24px',
+                  transform: `rotate(${cat.angle}deg) translateY(-${cat.distance}px) rotate(-${cat.angle}deg)`
                 }}
-                whileHover={{ scale: 1.2 }}
               >
-                <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-[9px] font-bold text-white text-center leading-tight">
-                  {cat.name}
-                </div>
-              </motion.div>
+                <motion.div
+                  className={`w-full h-full rounded-full bg-gradient-to-br ${cat.color} p-0.5 cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.2)]`}
+                  whileHover={{ scale: 1.2 }}
+                >
+                  <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-[9px] font-bold text-white text-center leading-tight">
+                    {cat.name}
+                  </div>
+                </motion.div>
+              </div>
             </motion.div>
           ))}
         </div>

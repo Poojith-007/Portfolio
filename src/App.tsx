@@ -8,6 +8,7 @@ import { Contact } from './components/Contact';
 import { AIChatbot } from './components/AIChatbot';
 import { ThemeProvider } from './context/ThemeContext';
 import { GravityProvider } from './context/GravityContext';
+import { SatelliteBeam } from './components/SatelliteBeam';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           </main>
           
           <AIChatbot />
+          <SatelliteBeam />
         </div>
       </GravityProvider>
     </ThemeProvider>

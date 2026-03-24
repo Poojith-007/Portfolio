@@ -59,28 +59,6 @@ export const About: FC = () => {
               </div>
             </div>
 
-            {/* Experience / Journey Section */}
-            <div className="mt-12 pt-8 border-t border-white/10">
-              <h3 className="text-2xl md:text-3xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-                Experience / Journey
-              </h3>
-              <div className="space-y-4 text-gray-300 text-lg leading-relaxed font-light">
-                <p>
-                  My journey into technology began with curiosity about how systems work beneath the surface—how applications function, how data flows, and how vulnerabilities can exist within them. This curiosity gradually led me into both development and cybersecurity.
-                </p>
-                <div className="pt-2">
-                  <h4 className="text-lg font-bold text-gray-200 mb-2">Through hands-on projects and continuous learning, I have developed experience in:</h4>
-                  <ul className="list-disc list-inside space-y-1 text-gray-400">
-                    <li>Building real-world applications</li>
-                    <li>Understanding system behavior and structure</li>
-                    <li>Exploring basic security concepts and vulnerabilities</li>
-                  </ul>
-                </div>
-                <p className="pt-2">
-                  I continuously explore new technologies, tools, and security practices to strengthen both my development and cybersecurity skills.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </motion.div>
