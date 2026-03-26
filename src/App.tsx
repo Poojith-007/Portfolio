@@ -5,7 +5,6 @@ import { Projects } from './components/Projects';
 import { SkillsOrbit } from './components/SkillsOrbit';
 import { About } from './components/About';
 import { Contact } from './components/Contact';
-import { AIChatbot } from './components/AIChatbot';
 import { ThemeProvider } from './context/ThemeContext';
 import { GravityProvider } from './context/GravityContext';
 import { SatelliteBeam } from './components/SatelliteBeam';
@@ -26,7 +25,6 @@ function App() {
             <div className="snap-start min-h-screen"><Contact /></div>
           </main>
           
-          <AIChatbot />
           <SatelliteBeam />
         </div>
       </GravityProvider>
